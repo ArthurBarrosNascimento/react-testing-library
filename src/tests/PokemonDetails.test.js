@@ -52,6 +52,21 @@ describe('Testando o componente PokemonDetails.js', () => {
     expect(summaryTitle).toBeDefined();
   });
 
+  it('Testando se o mapa corrreto é render de pokemon especifico (pikachu)', () => {
+    const { history } = renderWithRouter(<App />);
+    expect(history.location.pathname).toBe('/');
+
+    const linkMoreDetails = screen.getByRole('link', { name: /More details/i });
+    userEvent.click(linkMoreDetails);
+
+    const mapsImg = screen.getAllByRole('img', { name: /Pikachu Location/i });
+    const map1Src = 'https://cdn2.bulbagarden.net/upload/0/08/Kanto_Route_2_Map.png';
+    const map2Src = 'https://cdn2.bulbagarden.net/upload/b/bd/Kanto_Celadon_City_Map.png';
+
+    expect(mapsImg[0].src).toBe(map1Src);
+    expect(mapsImg[1].src).toBe(map2Src);
+  });
+
   it('Testando a label do checkbox', () => {
     const { history } = renderWithRouter(<App />);
     expect(history.location.pathname).toBe('/');
